@@ -41,6 +41,7 @@ const ProgramsComponent = () => {
                     <Panel header={singleProgram?.heading} key={singleProgram?.id}>
                         <p><strong>Statement:</strong> {singleProgram?.description}</p>
                         <img src={singleProgram?.img} alt={singleProgram?.name} />
+                        <pre>{singleProgram?.codeExplanation}</pre>
                         <pre>
                             <CopyToClipboard text={singleProgram?.code} onCopy={() => setCopiedIndex(singleProgram?.id)}>
                                 <button>{copiedIndex === singleProgram?.id ? 'Copied!' : 'Copy given Code!'}</button>
