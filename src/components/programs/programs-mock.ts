@@ -104,26 +104,163 @@ console.log(maxSum); // Output: 6
   },
   {
     id: "04",
-    heading: "04) Min Stack",
+    heading: "04) Min Stack (With OOP Concept)",
     description: `Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
 
-Implement the MinStack class:
 
+Implement the MinStack class:
 MinStack() initializes the stack object.
 void push(int val) pushes the element val onto the stack.
 void pop() removes the element on the top of the stack.
 int top() gets the top element of the stack.
 int getMin() retrieves the minimum element in the stack.`,
-    img: "",
-    codeExplanation: "",
-    code: "",
+    img: PROGRAMS_ASSETS.jsOOP,
+    codeExplanation: `In this implementation, we define a MinStack constructor function that serves as a blueprint for creating stack objects. 
+    The methods (push, pop, top, getMin) are added to the MinStack prototype, allowing all instances of MinStack to share the same set of methods.
+
+To create a new stack object, you can use the new keyword and assign it to a variable. For example, const stack = new MinStack();. 
+Then, you can use the instance methods (push, pop, top, getMin) on the stack object.
+
+In the example usage, we create a new stack, push elements onto it, and demonstrate the usage of the getMin, pop, and top methods.`,
+    code: `class MinStack {
+  constructor() {
+    this.stack = []; // Stack to store the elements
+    this.minStack = []; // Stack to track the minimum elements
+  }
+
+  push(val) {
+    this.stack.push(val);
+
+    // Update the minimum stack
+    if (this.minStack.length === 0 || val <= this.getMin()) {
+      this.minStack.push(val);
+    }
+  }
+
+  pop() {
+    const popped = this.stack.pop();
+
+    // Remove the element from the minimum stack if it is the current minimum
+    if (popped === this.getMin()) {
+      this.minStack.pop();
+    }
+
+    return popped;
+  }
+
+  top() {
+    return this.stack[this.stack.length - 1];
+  }
+
+  getMin() {
+    return this.minStack[this.minStack.length - 1];
+  }
+}
+
+// Example usage:
+const stack = new MinStack();
+stack.push(5);
+stack.push(2);
+stack.push(7);
+console.log(stack.getMin()); // Output: 2
+console.log(stack.pop()); // Output: 7
+console.log(stack.top()); // Output: 2
+`,
   },
   {
     id: "05",
-    heading: "05) Majority Element",
+    heading: "05) Most Repeated Elements in Array",
     description: ``,
-    img: "",
-    codeExplanation: "",
-    code: ``,
+    img: PROGRAMS_ASSETS.mostRepeatedElements,
+    codeExplanation: `Here's a breakdown of the code:
+
+1) Initialize an empty object elementCount to store the count of each element.
+2) Initialize variables mostRepeatedElement and maxCount to keep track of the element with the maximum count.
+3) Iterate over each element of the input array using a for...of loop.
+4) Check if the current element exists as a property in the elementCount object.
+4-a) If it exists, increment its count by 1.
+4-b) If it doesn't exist, set its count to 1.
+5) After updating the count, compare it with the current maximum count (maxCount).
+6) If the current count is greater than maxCount, update mostRepeatedElement and maxCount with the current element and its count.
+7) Repeat steps 4-5 for all elements in the array.
+Return the mostRepeatedElement, which will be the element that is repeated the most number of times in the array.`,
+    code: `
+    function findMostRepeatedElement(array) {
+  const elementCount = {};
+  let mostRepeatedElement = null;
+  let maxCount = 0;
+
+  for (let element of array) {
+    if (elementCount[element]) {
+      elementCount[element]++;
+    } else {
+      elementCount[element] = 1;
+    }
+
+    if (elementCount[element] > maxCount) {
+      mostRepeatedElement = element;
+      maxCount = elementCount[element];
+    }
+  }
+
+  return mostRepeatedElement;
+}
+`,
+  },
+  {
+    id: "06",
+    heading: "06) Valid Parenthesis",
+    description: `Given a string containing only parentheses (( and )), determine if the string is valid. An input string is valid if:
+      
+      1) Open brackets must be closed by the same type of brackets.
+2) Open brackets must be closed in the correct order.`,
+    img: PROGRAMS_ASSETS.validParenthesis,
+    codeExplanation: `In this solution, we use a stack data structure to keep track of the opening parentheses encountered. 
+    We iterate over each character in the input string and perform the following operations:
+
+If the character is an opening parenthesis (i.e., '(', '[', or '{'), we push it onto the stack.
+If the character is a closing parenthesis (i.e., ')', ']', or '}'),
+ we check if there is a matching opening parenthesis at the top of the stack. 
+ If there isn't, or if the opening and closing parentheses don't match, we return false indicating an invalid string of parentheses.
+After iterating through all the characters, we check if there are any remaining unclosed parentheses in the stack. 
+
+If there are, the string is invalid; otherwise, it is valid.
+You can call the isValidParentheses function with a string of parentheses to check its validity. It will return true if the parentheses are valid and false otherwise.`,
+    code: `function isValidParentheses(s) {
+  const stack = [];
+
+  for (let i = 0; i < s.length; i++) {
+    const char = s[i];
+    if (char === "(" || char === "[" || char === "{") {
+      // If opening bracket, push it to the stack
+      stack.push(char);
+    } else {
+      // If closing bracket, check if it matches the top of the stack
+      if (stack.length === 0) {
+        return false; // No matching opening bracket
+      }
+
+      const top = stack.pop(); // Get the top of the stack
+
+      // Check if the opening and closing brackets match
+      if (
+        (char === ")" && top !== "(") ||
+        (char === "]" && top !== "[") ||
+        (char === "}" && top !== "{")
+      ) {
+        return false; // Mismatched opening and closing brackets
+      }
+    }
+  }
+
+  return stack.length === 0; // Check if any opening brackets are left unclosed
+}
+
+console.log(isValidParentheses("()")); // true
+console.log(isValidParentheses("()[]{}")); // true
+console.log(isValidParentheses("(]")); // false
+console.log(isValidParentheses("([)]")); // false
+console.log(isValidParentheses("{[]}")); // true
+`,
   },
 ];
