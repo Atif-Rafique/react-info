@@ -3,7 +3,7 @@ import { Drawer, Layout, Menu, Affix } from "antd";
 import { AlignLeftOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
 import { Header } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 
 type MenuItemType = {
@@ -42,6 +42,8 @@ const SidebarComponent = ({ outlet }: any) => {
     const [isopen, setIsOpen] = useState(false);
 
     const { Content } = Layout;
+    const location = useLocation();
+
 
     return (
         <>
@@ -60,7 +62,7 @@ const SidebarComponent = ({ outlet }: any) => {
                         <Menu
                             theme="dark"
                             mode="inline"
-                            defaultSelectedKeys={['1']}
+                            defaultSelectedKeys={[location?.pathname]}
                         >
                             {menuItems.map((item) => (
                                 <Menu.Item key={item.key} icon={item.icon}>
@@ -78,9 +80,8 @@ const SidebarComponent = ({ outlet }: any) => {
                                 <Menu
                                     theme="light"
                                     mode="horizontal"
-                                    defaultSelectedKeys={['1']}
+                                    defaultSelectedKeys={[location?.pathname]}
                                     style={{ marginLeft: "auto" }}
-
                                 >
                                     {menuItems.map((item) => (
                                         <Menu.Item key={item.key} icon={item.icon}>
