@@ -31,11 +31,6 @@ const POITNSPAGE = Loadable(lazy(() => import("../pages/points")));
 
 export const APP_ROUTES = [
     { path: "/", element: <Navigate to="home" /> },
-    { path: "/programs", element: <PROGRAMPAGE /> },
-    { path: "/react-info", element: <REACTINFOPAGE /> },
-    { path: "/discussion", element: <DISCUSSIONPAGE /> },
-    { path: "/js-info", element: <JSINFOPAGE /> },
-    { path: "/points", element: <POITNSPAGE /> },
     {
         path: "/",
         element: <APPLAYOUT />,
@@ -44,6 +39,36 @@ export const APP_ROUTES = [
                 path: "home",
                 element: (
                     <HOMEPAGE />
+                ),
+            },
+            {
+                path: "programs",
+                element: (
+                    <PROGRAMPAGE />
+                ),
+            },
+            {
+                path: "discussion",
+                element: (
+                    <DISCUSSIONPAGE />
+                ),
+            },
+            {
+                path: "react-info",
+                element: (
+                    <REACTINFOPAGE />
+                ),
+            },
+            {
+                path: "js-info",
+                element: (
+                    <JSINFOPAGE />
+                ),
+            },
+            {
+                path: "points",
+                element: (
+                    <POITNSPAGE />
                 ),
             },
         ]

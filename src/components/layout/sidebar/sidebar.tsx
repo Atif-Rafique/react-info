@@ -1,12 +1,44 @@
 import { useState } from "react";
-import { Drawer, Layout } from "antd";
-// import { AlignLeftOutlined } from "@ant-design/icons";
+import { Drawer, Layout, Menu, Affix } from "antd";
+import { AlignLeftOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
+import { Header } from "antd/es/layout/layout";
+import Sider from "antd/es/layout/Sider";
+import { Link } from "react-router-dom";
 
 
+type MenuItemType = {
+    key: string;
+    icon: JSX.Element;
+    label: string;
+    path: string;
+};
+
+
+
+const menuItems: MenuItemType[] = [
+    {
+        key: "1",
+        icon: <UserOutlined />,
+        label: "Home",
+        path: "/home",
+    },
+    {
+        key: "2",
+        icon: <VideoCameraOutlined />,
+        label: "Discussion",
+        path: "/discussion",
+    },
+    {
+        key: "3",
+        icon: <UploadOutlined />,
+        label: "Programs",
+        path: "/programs",
+    },
+];
 
 
 const SidebarComponent = ({ outlet }: any) => {
-    // const [iscollapsed, setIsCollapsed] = useState(false);
+    const [iscollapsed, setIsCollapsed] = useState(true);
     const [isopen, setIsOpen] = useState(false);
 
     const { Content } = Layout;
@@ -19,24 +51,59 @@ const SidebarComponent = ({ outlet }: any) => {
                 onClose={() => setIsOpen(false)}
                 open={isopen}
             >
-                {/* <Sider /> */}
             </Drawer>
-            <Layout className="layout">
-                {/* <Sider iscollapsed={iscollapsed} location={location} setLocation={setLocation} /> */}
+            <Layout className="layout" style={{ minHeight: "100vh" }}>
+                {window.innerWidth < 600 && (
+                    <Sider trigger={null} collapsible collapsed={iscollapsed} collapsedWidth={0} breakpoint="lg"
+                        style={{ position: "fixed", height: "100vh" }}>
+                        <div className="demo-logo-vertical" />
+                        <Menu
+                            theme="dark"
+                            mode="inline"
+                            defaultSelectedKeys={['1']}
+                        >
+                            {menuItems.map((item) => (
+                                <Menu.Item key={item.key} icon={item.icon}>
+                                    <Link to={item.path}>{item.label}</Link>
+                                </Menu.Item>
+                            ))}
+                        </Menu>
+                    </Sider>
+                )}
                 <Layout className="site-layout">
-                    {/* <Header style={{ padding: 0, background: colorBgContainer }}>
-                        <div className="responsive-header"> */}
-                    {/* <img src={LogoImg} alt="logo" /> */}
-                    {/* </div>
-                        <span onClick={() => setIsCollapsed(!iscollapsed)}
-                            className="sideicon cursor-pointer">
-                            <AlignLeftOutlined />
-                        </span>
+                    <Affix offsetTop={0}>
+                        <Header style={{ padding: 0, background: "#fff", display: 'flex', alignItems: 'center' }}>
+                            <h3 style={{ fontSize: "20px", paddingLeft: "0.5em" }}>React Learning</h3>
+                            {window.innerWidth > 600 && (
+                                <Menu
+                                    theme="light"
+                                    mode="horizontal"
+                                    defaultSelectedKeys={['1']}
+                                    style={{ marginLeft: "auto" }}
 
-                    </Header> */}
+                                >
+                                    {menuItems.map((item) => (
+                                        <Menu.Item key={item.key} icon={item.icon}>
+                                            <Link to={item.path}>{item.label}</Link>
+                                        </Menu.Item>
+                                    ))}
+                                </Menu>
+                            )}
+
+                            {window.innerWidth < 600 && (
+                                <span style={{ cursor: "pointer", marginLeft: "auto", padding: "0 1em" }} onClick={() => setIsCollapsed(!iscollapsed)}>
+                                    <AlignLeftOutlined />
+                                </span>
+                            )}
+
+                        </Header>
+
+                    </Affix>
+
+
                     <Content
                         style={{
-                            padding: 30,
+                            padding: 20,
                             height: "90vh",
                             overflow: "auto",
                         }}

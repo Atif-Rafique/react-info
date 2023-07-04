@@ -1,4 +1,4 @@
-import { Collapse } from 'antd';
+import { Collapse, Image } from 'antd';
 import { PROGRAMS_DATA } from './programs-mock';
 import { CodeViewer } from '../common/formatter/formatter';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -40,8 +40,8 @@ const ProgramsComponent = () => {
                 {PROGRAMS_DATA?.map((singleProgram: any) => (
                     <Panel header={singleProgram?.heading} key={singleProgram?.id}>
                         <p><strong>Statement:</strong> {singleProgram?.description}</p>
-                        <img src={singleProgram?.img} alt={singleProgram?.name} />
-                        <pre>{singleProgram?.codeExplanation}</pre>
+                        <Image src={singleProgram?.img} alt={singleProgram?.name} />
+                        <pre className='text-wrap'>{singleProgram?.codeExplanation}</pre>
                         <pre>
                             <CopyToClipboard text={singleProgram?.code} onCopy={() => setCopiedIndex(singleProgram?.id)}>
                                 <button>{copiedIndex === singleProgram?.id ? 'Copied!' : 'Copy given Code!'}</button>
